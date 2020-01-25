@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,38 +20,34 @@ class MonthHabitToDay
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\MonthHabit", inversedBy="monthHabitToDays")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $monthHabit;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Day", inversedBy="monthHabitToDays")
      * @ORM\JoinColumn(nullable=false)
      */
     private $day;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Month", inversedBy="monthHabitToDays")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $month;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $checked = 0;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Habit", inversedBy="monthHabitToDays")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $habit;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getMonthHabit(): ?MonthHabit
-    {
-        return $this->monthHabit;
-    }
-
-    public function setMonthHabit(?MonthHabit $monthHabit): self
-    {
-        $this->monthHabit = $monthHabit;
-
-        return $this;
-    }
 
     public function getDay(): ?Day
     {
@@ -59,6 +57,18 @@ class MonthHabitToDay
     public function setDay(?Day $day): self
     {
         $this->day = $day;
+
+        return $this;
+    }
+
+    public function getMonth(): ?Month
+    {
+        return $this->month;
+    }
+
+    public function setMonth(?Month $month): self
+    {
+        $this->month = $month;
 
         return $this;
     }
@@ -74,4 +84,17 @@ class MonthHabitToDay
 
         return $this;
     }
+
+    public function getHabit(): ?Habit
+    {
+        return $this->habit;
+    }
+
+    public function setHabit(?Habit $habit): self
+    {
+        $this->habit = $habit;
+
+        return $this;
+    }
+
 }

@@ -29,13 +29,20 @@ class Habit
     private $Description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MonthHabit", mappedBy="Habit")
+     * @ORM\OneToMany(targetEntity="App\Entity\MonthHabitToDay", mappedBy="habit")
      */
-    private $monthHabits;
+    private $monthHabitToDays;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MonthToHabit", mappedBy="Habit")
+     */
+    private $monthToHabits;
 
     public function __construct()
     {
         $this->monthHabits = new ArrayCollection();
+        $this->monthHabitToDays = new ArrayCollection();
+        $this->monthToHabits = new ArrayCollection();
     }
 
 
@@ -68,31 +75,63 @@ class Habit
         return $this;
     }
 
+
     /**
-     * @return Collection|MonthHabit[]
+     * @return Collection|MonthHabitToDay[]
      */
-    public function getMonthHabits(): Collection
+    public function getMonthHabitToDays(): Collection
     {
-        return $this->monthHabits;
+        return $this->monthHabitToDays;
     }
 
-    public function addMonthHabit(MonthHabit $monthHabit): self
+    public function addMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
     {
-        if (!$this->monthHabits->contains($monthHabit)) {
-            $this->monthHabits[] = $monthHabit;
-            $monthHabit->setHabit($this);
+        if (!$this->monthHabitToDays->contains($monthHabitToDay)) {
+            $this->monthHabitToDays[] = $monthHabitToDay;
+            $monthHabitToDay->setHabit($this);
         }
 
         return $this;
     }
 
-    public function removeMonthHabit(MonthHabit $monthHabit): self
+    public function removeMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
     {
-        if ($this->monthHabits->contains($monthHabit)) {
-            $this->monthHabits->removeElement($monthHabit);
+        if ($this->monthHabitToDays->contains($monthHabitToDay)) {
+            $this->monthHabitToDays->removeElement($monthHabitToDay);
             // set the owning side to null (unless already changed)
-            if ($monthHabit->getHabit() === $this) {
-                $monthHabit->setHabit(null);
+            if ($monthHabitToDay->getHabit() === $this) {
+                $monthHabitToDay->setHabit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MonthToHabit[]
+     */
+    public function getMonthToHabits(): Collection
+    {
+        return $this->monthToHabits;
+    }
+
+    public function addMonthToHabit(MonthToHabit $monthToHabit): self
+    {
+        if (!$this->monthToHabits->contains($monthToHabit)) {
+            $this->monthToHabits[] = $monthToHabit;
+            $monthToHabit->setHabit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMonthToHabit(MonthToHabit $monthToHabit): self
+    {
+        if ($this->monthToHabits->contains($monthToHabit)) {
+            $this->monthToHabits->removeElement($monthToHabit);
+            // set the owning side to null (unless already changed)
+            if ($monthToHabit->getHabit() === $this) {
+                $monthToHabit->setHabit(null);
             }
         }
 

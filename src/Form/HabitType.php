@@ -15,7 +15,7 @@ class HabitType extends AbstractType
         $builder
             ->add('Name')
             ->add('Description')
-            ->add('save', SubmitType::class, ['label' => 'Create Habit'])
+            ->add('save', SubmitType::class, ['label' => 'Next step'])
         ;
     }
 

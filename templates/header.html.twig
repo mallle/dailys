@@ -1,0 +1,23 @@
+{% import "_macros.html.twig" as macros %}
+
+{% if navi is not defined %}
+    {% set navi = '' %}
+{% endif %}
+
+
+<div class="pt-5 bg-info">
+    <div class="container mt-5 mb-5">
+        <h1 class="display-4 text-center">HABIT tracker</h1>
+        <p class="lead text-center">Track your habits an see your daily progress</p>
+    </div>
+    <div class="container pt-5">
+        <ul class="nav nav-tabs justify-content-center mb-5">
+            <li class="nav-item">
+                <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_habits_home') }}">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Habits</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Month
 {
+
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,18 +24,23 @@ class Month
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MonthHabit", mappedBy="Month")
+     * @ORM\OneToMany(targetEntity="App\Entity\MonthHabitToDay", mappedBy="month")
      */
-    private $monthHabits;
+    private $monthHabitToDays;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MonthToHabit", mappedBy="Month")
+     */
+    private $monthToHabits;
 
     public function __construct()
     {
-        $this->monthHabits = new ArrayCollection();
+        $this->monthHabitToDays = new ArrayCollection();
+        $this->monthToHabits = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -41,41 +49,73 @@ class Month
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
+
     /**
-     * @return Collection|MonthHabit[]
+     * @return Collection|MonthHabitToDay[]
      */
-    public function getMonthHabits(): Collection
+    public function getMonthHabitToDays(): Collection
     {
-        return $this->monthHabits;
+        return $this->monthHabitToDays;
     }
 
-    public function addMonthHabit(MonthHabit $monthHabit): self
+    public function addMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
     {
-        if (!$this->monthHabits->contains($monthHabit)) {
-            $this->monthHabits[] = $monthHabit;
-            $monthHabit->setMonth($this);
+        if (!$this->monthHabitToDays->contains($monthHabitToDay)) {
+            $this->monthHabitToDays[] = $monthHabitToDay;
+            $monthHabitToDay->setMonth($this);
         }
 
         return $this;
     }
 
-    public function removeMonthHabit(MonthHabit $monthHabit): self
+    public function removeMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
     {
-        if ($this->monthHabits->contains($monthHabit)) {
-            $this->monthHabits->removeElement($monthHabit);
+        if ($this->monthHabitToDays->contains($monthHabitToDay)) {
+            $this->monthHabitToDays->removeElement($monthHabitToDay);
             // set the owning side to null (unless already changed)
-            if ($monthHabit->getMonth() === $this) {
-                $monthHabit->setMonth(null);
+            if ($monthHabitToDay->getMonth() === $this) {
+                $monthHabitToDay->setMonth(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MonthToHabit[]
+     */
+    public function getMonthToHabits(): Collection
+    {
+        return $this->monthToHabits;
+    }
+
+    public function addMonthToHabit(MonthToHabit $monthToHabit): self
+    {
+        if (!$this->monthToHabits->contains($monthToHabit)) {
+            $this->monthToHabits[] = $monthToHabit;
+            $monthToHabit->setMonth($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMonthToHabit(MonthToHabit $monthToHabit): self
+    {
+        if ($this->monthToHabits->contains($monthToHabit)) {
+            $this->monthToHabits->removeElement($monthToHabit);
+            // set the owning side to null (unless already changed)
+            if ($monthToHabit->getMonth() === $this) {
+                $monthToHabit->setMonth(null);
             }
         }
 

@@ -2,26 +2,27 @@
 
 {% block title %}Hello HabitController!{% endblock %}
 
-{% block body %}
+{% block main %}
 
-    <h1>All Habits</h1>
-    <a href="{{ path('app_habits_new')}}" class="btn btn-sm btn-outline-secondary">New</a>
-
-
+    <div class="d-flex justify-content-between p-2">
+        <h1>All Habits</h1>
+        <div class="d-">
+            <a href="{{ path('app_habits_new')}}" class="btn btn-sm btn-outline-secondary">New</a>
+        </div>
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-
                 <th>Name</th>
-                <th>Action</th>
+                <th class="text-center">Action</th>
             </tr>
             </thead>
             <tbody>
             {% for habit in habits %}
                 <tr>
                     <td>{{ habit.name }}</td>
-                    <td>
+                    <td class="text-center">
                         <a href="{{ path('app_habits_edit', { habit: habit.id })}}" class="btn btn-sm btn-outline-secondary">Edit</a>
                         <a href="{{ path('app_habits_delete', { habit: habit.id })}}" class="btn btn-sm btn-outline-secondary">Delete</a>
                     </td>
