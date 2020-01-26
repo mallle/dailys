@@ -24,7 +24,7 @@ class MonthToHabit
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Habit", inversedBy="monthToHabits")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $Habit;
 

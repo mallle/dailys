@@ -13,6 +13,8 @@ use App\Repository\MonthRepository;
 use App\Repository\MonthToHabitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -20,23 +22,25 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/", name="app_habits_home")
+     * @param MonthToHabitRepository $monthHabitRepository
+     * @param MonthRepository $monthRepository
+     * @param DayRepository $dayRepository
+     *
+     * @return Response
      */
-    public function index(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository)
+    public function index(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository, MonthHabitToDayRepository $monthHabitToDayRepository)
     {
-
-        $monthsHabits = $monthHabitRepository->findAll();
-
         $months = $monthRepository->findAll();
 
         $days = $dayRepository->findAll();
 
-
+        $monthHabitToDays = $monthHabitToDayRepository->findAll();
 
         return $this->render('index.html.twig', [
             'navi' => 'home',
             'months' => $months,
             'days' => $days,
-            'monthsHabits' => $monthsHabits,
+            'monthHabitToDays' => $monthHabitToDays,
         ]);
     }
 
@@ -50,7 +54,7 @@ class HomeController extends AbstractController
      * @param Month $month
      * @param MonthHabitToDayRepository $monthHabitToDayRepository
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function check(Habit $habit, Day $day, Month $month, MonthHabitToDayRepository $monthHabitToDayRepository, EntityManagerInterface $em)
     {
@@ -59,7 +63,6 @@ class HomeController extends AbstractController
 
         $monthHabitToDay->setChecked(!$monthHabitToDay->isChecked());
 
-//        $em->persist($monthHabitToDay);
         $em->flush();
 
         return $this->redirect($this->generateUrl('app_habits_home'));

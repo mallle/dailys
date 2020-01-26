@@ -7,16 +7,16 @@
 
 <div class="pt-5 bg-info">
     <div class="container mt-5 mb-5">
-        <h1 class="display-4 text-center">HABIT tracker</h1>
-        <p class="lead text-center">Track your habits an see your daily progress</p>
+        <h1 class="display-2 text-center pt-5">HABIT tracker</h1>
+        <p class="lead text-center pb-5">Track your habits an see your daily progress</p>
     </div>
     <div class="container pt-5">
         <ul class="nav nav-tabs justify-content-center mb-5">
             <li class="nav-item">
-                <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_habits_home') }}">Link</a>
+                <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_habits_home') }}">Habit Tracker</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Habits</a>
+                <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Mange your Habits</a>
             </li>
         </ul>
     </div>

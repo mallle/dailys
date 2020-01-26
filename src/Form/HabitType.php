@@ -15,7 +15,12 @@ class HabitType extends AbstractType
         $builder
             ->add('Name')
             ->add('Description')
-            ->add('save', SubmitType::class, ['label' => 'Next step'])
+            ->add('save', SubmitType::class, [
+                'label' => 'Next step',
+                'attr' => [
+                    'class' => 'btn btn-sm btn-outline-secondary'
+                ]
+            ])
         ;
     }
 

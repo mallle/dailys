@@ -1,13 +1,22 @@
+a, .display-2 , .lead{
+    color: #f2f2f2;
+}
+a:hover{
+    color: #495057;
+}
+
+
 .check-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #e2dfdf; /* Green */
     border: none;
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    /*display: inline-block;*/
+    display: flex;
     font-size: 16px;
 }
 
-.button-checked{
-    background-color: blue;
+.checked{
+    background-color: #17a2b8 !important;
 }

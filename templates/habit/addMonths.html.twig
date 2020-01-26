@@ -3,17 +3,13 @@
 {% block title %}Add Months to Habit{% endblock %}
 
 {% block main %}
-
-        <div class="row">
-                <div class="col-6">
-                    {{  form_start(form) }}
-                        {{ form_widget(form) }}
-                    {{ form_end(form) }}
-                </div>
-
-                <div class="col-6">
-
-                </div>
+    <h1 class="text-center">Add the months where you want to track your new habit</h1>
+    <div class="row">
+        <div class="col">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+            {{ form_end(form) }}
         </div>
+    </div>
 {% endblock %}
 

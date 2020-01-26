@@ -10,6 +10,7 @@ use App\Form\HabitType;
 use App\Repository\DayRepository;
 use App\Repository\HabitRepository;
 use App\Repository\MonthRepository;
+use App\Repository\MonthToHabitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -165,9 +166,12 @@ class HabitController extends AbstractController
                 ],
                 'multiple' => TRUE,
                 'expanded' => TRUE,
-                'placeholder' => 'Choose an option',
             ])
-            ->add('send', SubmitType::class)
+            ->add('confirm', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-sm btn-outline-secondary'
+                ]
+            ])
             ->getForm();
 
         $form->handleRequest($request);
@@ -212,4 +216,25 @@ class HabitController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/habits/{monthToHabit}", name="app_habits_months_remove")
+     *
+     * @param MonthToHabit $monthToHabit
+     * @param EntityManagerInterface $em
+     *
+     * @return RedirectResponse
+     */
+    public function removeMonthFromHabit(MonthToHabit $monthToHabit, EntityManagerInterface $em){
+
+        $habit = $monthToHabit->getHabit();
+
+        $em->remove($monthToHabit);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
+
+    }
+
 }
