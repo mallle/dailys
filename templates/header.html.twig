@@ -5,11 +5,16 @@
 {% endif %}
 
 
-
 <div class="row bg-info" style="margin: 0;">
-    <div class="col-auto mr-auto"></div>
+    <div class="col-auto mr-auto">
+        <a class="nav-link" href="{{ path('app_home') }}">Habits</a>
+    </div>
     <div class="col-auto">
-        <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_login') }}">Login</a>
+        {% if is_granted('ROLE_USER') %}
+            <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_logout') }}">Logout</a>
+        {% else %}
+            <a class="nav-link {{ macros.activeNavi(navi, 'login') }}" href="{{ path('app_login') }}">Login</a>
+        {% endif %}
     </div>
 </div>
 <div class="pt-5 bg-info">
@@ -19,12 +24,15 @@
     </div>
     <div class="container pt-5">
         <ul class="nav nav-tabs justify-content-center mb-5">
+            {% if is_granted('ROLE_USER') %}
+
             <li class="nav-item">
-                <a class="nav-link {{ macros.activeNavi(navi, 'home') }}" href="{{ path('app_habits_home') }}">Habit Tracker</a>
+                <a class="nav-link {{ macros.activeNavi(navi, 'tracker') }}" href="{{ path('app_tracker') }}">Habit Tracker</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Mange your Habits</a>
             </li>
+            {% endif %}
         </ul>
     </div>
 </div>

@@ -16,6 +16,16 @@
         <main class="container">
             {% block main %}{% endblock main %}
         </main>
+
+        <footer class="footer mt-auto py-3 bg-info">
+            <div class="container">
+                <span class="text-muted">
+                    <a class="nav-link" href="{{ path('legal_notice') }}" target="_blank">
+                        Legal Notice & Privacy Policy
+                    </a>
+                </span>
+            </div>
+        </footer>
     {% endblock %}
 
 

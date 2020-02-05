@@ -21,14 +21,31 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="app_habits_home")
+     * @Route("/", name="app_home")
      * @param MonthToHabitRepository $monthHabitRepository
      * @param MonthRepository $monthRepository
      * @param DayRepository $dayRepository
      *
      * @return Response
      */
-    public function index(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository, MonthHabitToDayRepository $monthHabitToDayRepository)
+    public function index()
+    {
+
+        return $this->render('index.html.twig', [
+            'navi' => 'home',
+        ]);
+    }
+
+
+    /**
+     * @Route("/tracker", name="app_tracker")
+     * @param MonthToHabitRepository $monthHabitRepository
+     * @param MonthRepository $monthRepository
+     * @param DayRepository $dayRepository
+     *
+     * @return Response
+     */
+    public function tracker(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository, MonthHabitToDayRepository $monthHabitToDayRepository)
     {
         $months = $monthRepository->findAll();
 
@@ -36,8 +53,8 @@ class HomeController extends AbstractController
 
         $monthHabitToDays = $monthHabitToDayRepository->findAll();
 
-        return $this->render('index.html.twig', [
-            'navi' => 'home',
+        return $this->render('tracker.html.twig', [
+            'navi' => 'tracker',
             'months' => $months,
             'days' => $days,
             'monthHabitToDays' => $monthHabitToDays,
