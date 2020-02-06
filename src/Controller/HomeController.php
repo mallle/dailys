@@ -12,19 +12,15 @@ use App\Repository\MonthHabitToDayRepository;
 use App\Repository\MonthRepository;
 use App\Repository\MonthToHabitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class HomeController extends BaseController
 {
 
     /**
      * @Route("/", name="app_home")
-     * @param MonthToHabitRepository $monthHabitRepository
-     * @param MonthRepository $monthRepository
-     * @param DayRepository $dayRepository
      *
      * @return Response
      */

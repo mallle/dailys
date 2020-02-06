@@ -81,11 +81,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        //Redirect back to the requested page after login if a not accessible page was requested
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->router->generate('some_route'));
+        //Otherweise return to the homepage
         return new RedirectResponse($this->router->generate('app_home'));
     }
 

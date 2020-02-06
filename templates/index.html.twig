@@ -7,8 +7,19 @@
 {% endblock css%}
 
 {% block main %}
-    <h2>Nice to see you 👋</h2>
+    <h2>Nice to see yor
+        {% if app.user is empty %}
 
-    <p>Please login to manage your habits and see your progress</p>
+            {% else %}
+                {{ app.user.email }}
+        {% endif %}
+
+        👋</h2>
+
+    {% if app.user is empty %}
+        <p>Please login to manage your habits and see your progress</p>
+    {% else %}
+        <p>hi</p>
+    {% endif %}
 
 {% endblock %}

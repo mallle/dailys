@@ -1,12 +1,7 @@
-.display-2 , .lead{
-  color: #f2f2f2;
-}
-
-
-a.nav-link{
+a.nav-link {
     color: #f2f2f2;
 }
-.nav-link:hover{
+.nav-link:hover {
     color: #495057;
 }
 
@@ -15,6 +10,15 @@ main {
     padding-bottom: 120px;
     padding-top: 40px;
 }
+
+.display-2 , .lead {
+    color: #f2f2f2;
+}
+
+.form-signin {
+    width: 50%;
+}
+
 .check-button {
     background-color: #e2dfdf; /* Green */
     border: none;
@@ -26,6 +30,6 @@ main {
     font-size: 16px;
 }
 
-.checked{
+.checked {
     background-color: #17a2b8 !important;
 }

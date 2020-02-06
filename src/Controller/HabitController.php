@@ -10,8 +10,6 @@ use App\Form\HabitType;
 use App\Repository\DayRepository;
 use App\Repository\HabitRepository;
 use App\Repository\MonthRepository;
-use App\Repository\MonthToHabitRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -21,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 
-class HabitController extends AbstractController
+class HabitController extends BaseController
 {
 
     /**

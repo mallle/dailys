@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LegalNoticeController extends AbstractController
+class LegalNoticeController extends BaseController
 {
     /**
      * @Route("/legal/notice", name="legal_notice")
