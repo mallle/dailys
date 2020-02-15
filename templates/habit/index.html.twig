@@ -10,6 +10,7 @@
             <a href="{{ path('app_habits_new')}}" class="btn btn-sm btn-outline-secondary">New</a>
         </div>
     </div>
+    {% if habits|length > 0 %}
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -31,5 +32,8 @@
             </tbody>
         </table>
     </div>
+    {% else %}
+        <p>Add a new habits before you can mange and track them 😁</p>
+    {% endif %}
 
 {% endblock %}

@@ -132,7 +132,7 @@ class HabitController extends BaseController
                 $this->em->flush();
 
                 $months = $this->monthRepository->findAll();
-                return $this->redirect($this->generateUrl('app_habits_months', ['habit' => $habit->getId()]));
+                return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
             }
             //$this->addFlashMessage('error', '');
         }

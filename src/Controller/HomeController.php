@@ -47,13 +47,10 @@ class HomeController extends BaseController
 
         $days = $dayRepository->findAll();
 
-        $monthHabitToDays = $monthHabitToDayRepository->findAll();
-
         return $this->render('tracker.html.twig', [
             'navi' => 'tracker',
             'months' => $months,
             'days' => $days,
-            'monthHabitToDays' => $monthHabitToDays,
         ]);
     }
 
@@ -78,6 +75,6 @@ class HomeController extends BaseController
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('app_habits_home'));
+        return $this->redirect($this->generateUrl('app_tracker'));
     }
 }
