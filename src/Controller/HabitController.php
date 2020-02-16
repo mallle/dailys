@@ -107,7 +107,7 @@ class HabitController extends BaseController
 
         $habits = $habitRepository->findAll();
 
-        return $this->render('Habit/index.html.twig', [
+        return $this->render('habit/index.html.twig', [
             'navi' => 'habits',
             'habits' => $habits,
         ]);
@@ -207,7 +207,7 @@ class HabitController extends BaseController
             //$this->addFlashMessage('error', '');
         }
 
-        return $this->render('Habit/addMonths.html.twig', [
+        return $this->render('habit/addMonths.html.twig', [
             'navi' => 'habits',
             'habit' => $habit,
             'months' => $months,
