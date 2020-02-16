@@ -6,6 +6,7 @@ use App\Entity\Habit;
 use App\Entity\Month;
 use App\Entity\MonthHabitToDay;
 use App\Entity\MonthToHabit;
+use App\Entity\User;
 use App\Form\HabitType;
 use App\Repository\DayRepository;
 use App\Repository\HabitRepository;
@@ -51,8 +52,8 @@ class HabitController extends BaseController
      */
     public function index(HabitRepository $habitRepository)
     {
-
-        $habits = $habitRepository->findAll();
+        $user = $this->getUser();
+        $habits = $user->getHabits();
 
         return $this->render('habit/index.html.twig', [
             'navi' => 'habits',
@@ -86,6 +87,10 @@ class HabitController extends BaseController
      */
     public function edit(Habit $habit, Request $request)
     {
+        if($this->hasAccess($this->getUser(), $habit)){
+            return $this->redirect($this->generateUrl('app_habits'));
+        }
+
         $form = $this->createForm(HabitType::class, $habit);
 
         return $this->handleForm($habit, $form, $request);
@@ -102,10 +107,14 @@ class HabitController extends BaseController
      */
     public function delete(Habit $habit, Request $request, HabitRepository $habitRepository)
     {
+        if($this->hasAccess($this->getUser(), $habit)){
+            return $this->redirect($this->generateUrl('app_habits'));
+        }
+
         $this->em->remove($habit);
         $this->em->flush();
 
-        $habits = $habitRepository->findAll();
+        $habits = $this->getUser()->getHabits();
 
         return $this->render('habit/index.html.twig', [
             'navi' => 'habits',
@@ -127,6 +136,8 @@ class HabitController extends BaseController
 
         if ($formInterface->isSubmitted()) {
             if ($formInterface->isValid()) {
+
+                $habit->setUser($this->getUser());
 
                 $this->em->persist($habit);
                 $this->em->flush();
@@ -233,6 +244,19 @@ class HabitController extends BaseController
 
         return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
 
+    }
+
+    /**
+     * @param User $user
+     * @param Habit $habit
+     * @return bool
+     */
+    private function hasAccess(User $user, Habit $habit): bool
+    {
+        if(!($habit->getUser()->getId() === $user->getId())){
+            return true;
+        }
+        return false;
     }
 
 }

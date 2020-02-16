@@ -43,6 +43,8 @@ class HomeController extends BaseController
      */
     public function tracker(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository, MonthHabitToDayRepository $monthHabitToDayRepository)
     {
+        $habits = $this->getUser()->getHabits();
+
         $months = $monthRepository->findAll();
 
         $days = $dayRepository->findAll();
@@ -51,6 +53,7 @@ class HomeController extends BaseController
             'navi' => 'tracker',
             'months' => $months,
             'days' => $days,
+            'habits' => $habits,
         ]);
     }
 

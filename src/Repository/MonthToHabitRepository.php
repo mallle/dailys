@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\MonthToHabit;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method MonthToHabit|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +20,23 @@ class MonthToHabitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, MonthToHabit::class);
     }
+
+
+    /**
+     * @param User $user
+     * @return MonthToHabit|null
+     * @throws NonUniqueResultException
+     */
+   public function findMonthToHabitForUser(User $user): ?MonthToHabit
+   {
+       return $this->createQueryBuilder('m')
+           ->leftJoin('m.habit', 'h')
+           ->andWhere('h.user = :user')
+           ->setParameter('user', $user)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 
     // /**
     //  * @return MonthToHabit[] Returns an array of MonthToHabit objects

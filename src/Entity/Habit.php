@@ -38,6 +38,12 @@ class Habit
      */
     private $monthToHabits;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="habits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->monthHabits = new ArrayCollection();
@@ -134,6 +140,18 @@ class Habit
                 $monthToHabit->setHabit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
