@@ -137,7 +137,7 @@ class HabitController extends BaseController
             //$this->addFlashMessage('error', '');
         }
 
-        return $this->render('Habit/edit.html.twig', [
+        return $this->render('habit/edit.html.twig', [
             'navi' => 'habits',
             'form' => $formInterface->createView(),
             'habit' => $habit,
