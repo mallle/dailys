@@ -18,6 +18,3 @@ framework:
                 adapter: cache.app
             doctrine.system_cache_pool:
                 adapter: cache.system
-
-parameters:
-    database_host:     '%env(CLEARDB_DATABASE_URL)%'
