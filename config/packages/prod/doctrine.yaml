@@ -20,8 +20,8 @@ framework:
                 adapter: cache.system
 
 parameters:
-    database_host:     %env(CLEARDB_DATABASE_URL)%
+    database_host:     '%env(CLEARDB_DATABASE_URL)%'
     database_port:     ~
     database_name:     'heroku_c7a556a4bee79e9'
-    database_user:     %env(DB_USER)%
-    database_password: %env(DB_PASS)%
+    database_user:     '%env(DB_USER)%'
+    database_password: '%env(DB_PASS)%'
