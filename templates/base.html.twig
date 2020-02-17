@@ -19,11 +19,16 @@
 
         <footer class="footer mt-auto py-3 bg-info">
             <div class="container">
-                <span class="text-muted">
-                    <a class="nav-link" href="{{ path('legal_notice') }}" target="_blank">
-                        Legal Notice & Privacy Policy
-                    </a>
-                </span>
+                <ul class="nav">
+                    <li class="">
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="nav-link" href="{{ path('app_reset_password') }}">Change password</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ path('legal_notice') }}" target="_blank">Legal Notice & Privacy Policy</a>
+                    </li>
+                </ul>
             </div>
         </footer>
     {% endblock %}
