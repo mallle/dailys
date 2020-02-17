@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Month;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -17,6 +18,23 @@ class MonthRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Month::class);
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     *
+     * @return Month[] Returns an array of Month objects
+     */
+    public function findMonthForUser(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->leftJoin('m.monthToHabits', 'mth')
+            ->leftJoin('mth.habit', 'h')
+            ->andWhere('h.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Day;
 use App\Entity\Habit;
 use App\Entity\Month;
-use App\Entity\MonthHabitToDay;
 use App\Repository\DayRepository;
 use App\Repository\MonthHabitRepository;
 use App\Repository\MonthHabitToDayRepository;
 use App\Repository\MonthRepository;
-use App\Repository\MonthToHabitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,17 +33,16 @@ class HomeController extends BaseController
 
     /**
      * @Route("/tracker", name="app_tracker")
-     * @param MonthToHabitRepository $monthHabitRepository
      * @param MonthRepository $monthRepository
      * @param DayRepository $dayRepository
      *
      * @return Response
      */
-    public function tracker(MonthToHabitRepository $monthHabitRepository, MonthRepository $monthRepository, DayRepository $dayRepository, MonthHabitToDayRepository $monthHabitToDayRepository)
+    public function tracker(MonthRepository $monthRepository, DayRepository $dayRepository)
     {
         $habits = $this->getUser()->getHabits();
 
-        $months = $monthRepository->findAll();
+        $months = $monthRepository->findMonthForUser($this->getUser());
 
         $days = $dayRepository->findAll();
 

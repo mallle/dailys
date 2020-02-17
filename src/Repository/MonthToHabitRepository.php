@@ -21,23 +21,6 @@ class MonthToHabitRepository extends ServiceEntityRepository
         parent::__construct($registry, MonthToHabit::class);
     }
 
-
-    /**
-     * @param User $user
-     * @return MonthToHabit|null
-     * @throws NonUniqueResultException
-     */
-   public function findMonthToHabitForUser(User $user): ?MonthToHabit
-   {
-       return $this->createQueryBuilder('m')
-           ->leftJoin('m.habit', 'h')
-           ->andWhere('h.user = :user')
-           ->setParameter('user', $user)
-           ->getQuery()
-           ->getOneOrNullResult()
-       ;
-   }
-
     // /**
     //  * @return MonthToHabit[] Returns an array of MonthToHabit objects
     //  */

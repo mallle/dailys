@@ -34,7 +34,7 @@ class Habit
     private $monthHabitToDays;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MonthToHabit", mappedBy="Habit")
+     * @ORM\OneToMany(targetEntity="App\Entity\MonthToHabit", mappedBy="habit")
      */
     private $monthToHabits;
 

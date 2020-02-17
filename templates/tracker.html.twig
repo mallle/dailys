@@ -13,39 +13,37 @@
     {% else %}
         {% for month in months %}
             {% if month.monthToHabits|length > 0 %}
-                {% for monthToHabit in month.monthToHabits %}
-                    {% if app.user.id == monthToHabit.habit.user.id %}
-                        <h3 class="mt-5">{{ month.name }}</h3>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <td>Habits:</td>
+                <h3 class="mt-5">{{ month.name }}</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <td>Habits:</td>
+                                {% for day in days %}
+                                    <th>{{ day.number }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for monthToHabit in month.monthToHabits %}
+                                {% if (app.user.id == monthToHabit.habit.user.id) %}
+                                <tr>
+                                    {% if app.user.id == monthToHabit.habit.user.id %}
+                                        <td>{{ monthToHabit.habit.name }}</td>
                                         {% for day in days %}
-                                            <th>{{ day.number }}</th>
+                                            <td >
+                                                <form action="{{ path('app_months_habits_check', {'habit': monthToHabit.habit.id, 'day': day.id, 'month' : month.id}) }}" name="formName" id="{{ monthToHabit.habit.name ~ month.name ~ day.number }}"  method="POST">
+                                                    <button type="submit" class="check-button {{ 'checked' | habit_is_checked(monthToHabit.habit.id, month.id, day.id) }}" ></button>
+                                                </form>
+                                            </td>
                                         {% endfor %}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for monthToHabit in month.monthToHabits %}
-                                        <tr>
-                                            {% if app.user.id == monthToHabit.habit.user.id %}
-                                                <td>{{ monthToHabit.habit.name }}</td>
-                                                {% for day in days %}
-                                                    <td >
-                                                        <form action="{{ path('app_months_habits_check', {'habit': monthToHabit.habit.id, 'day': day.id, 'month' : month.id}) }}" name="formName" id="{{ monthToHabit.habit.name ~ month.name ~ day.number }}"  method="POST">
-                                                            <button type="submit" class="check-button {{ 'checked' | habit_is_checked(monthToHabit.habit.id, month.id, day.id) }}" ></button>
-                                                        </form>
-                                                    </td>
-                                                {% endfor %}
-                                            {% endif %}
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                                    {% endif %}
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             {% endif %}
         {% endfor %}
     {% endif %}

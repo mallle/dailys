@@ -20,13 +20,13 @@ class MonthToHabit
      * @ORM\ManyToOne(targetEntity="App\Entity\Month", inversedBy="monthToHabits")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Month;
+    private $month;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Habit", inversedBy="monthToHabits")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
-    private $Habit;
+    private $habit;
 
     public function getId(): ?int
     {
@@ -35,24 +35,24 @@ class MonthToHabit
 
     public function getMonth(): ?Month
     {
-        return $this->Month;
+        return $this->month;
     }
 
-    public function setMonth(?Month $Month): self
+    public function setMonth(?Month $month): self
     {
-        $this->Month = $Month;
+        $this->month = $month;
 
         return $this;
     }
 
     public function getHabit(): ?Habit
     {
-        return $this->Habit;
+        return $this->habit;
     }
 
-    public function setHabit(?Habit $Habit): self
+    public function setHabit(?Habit $habit): self
     {
-        $this->Habit = $Habit;
+        $this->habit = $habit;
 
         return $this;
     }
