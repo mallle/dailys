@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AddNewUserCommand extends Command
 {
 
-    protected static $defaultName = 'app:addNewUser';
+    protected static $defaultName = 'app:add-new-user';
 
     /**
      * @var UserPasswordEncoderInterface
@@ -70,7 +70,7 @@ class AddNewUserCommand extends Command
 
             $this->entityManager->flush();
 
-            $io->success(sprintf('Added a new users with email: %s to the database', $emailAddress));
+            $io->success(sprintf('Added a new user with email: %s to the database', $emailAddress));
 
             return 0;
         }
