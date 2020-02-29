@@ -42,11 +42,13 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Goal", mappedBy="user")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     private $goals;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ToDo", mappedBy="user")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     private $toDos;
 
