@@ -7,8 +7,6 @@ use App\Entity\Habit;
 use App\Entity\User;
 use App\Form\HabitType;
 use App\Repository\HabitRepository;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

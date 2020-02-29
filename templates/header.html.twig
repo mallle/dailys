@@ -7,7 +7,7 @@
 
 <div class="row bg-info" style="margin: 0;">
     <div class="col-auto mr-auto">
-        <a class="nav-link" href="{{ path('app_home') }}">HABIT <br> tracker</a>
+        <a class="nav-link" href="{{ path('app_home') }}">DAILYs</a>
     </div>
     <div class="col-auto">
         {% if is_granted('ROLE_USER') %}
@@ -19,18 +19,25 @@
 </div>
 <div class="pt-5 bg-info">
     <div class="container mt-5 mb-5">
-        <h1 class="display-2 text-center pt-5">HABIT tracker</h1>
-        <p class="lead text-center pb-5">Track your habits an see your daily progress</p>
+        <h1 class="display-2 text-center pt-5">DAILYs</h1>
+        <p class="lead text-center pb-5">Habit-Tracker/To-Dos/Goals/Schedule</p>
     </div>
     <div class="container pt-5">
         <ul class="nav nav-tabs justify-content-center mb-5">
             {% if is_granted('ROLE_USER') %}
-            <li class="nav-item">
-                <a class="nav-link {{ macros.activeNavi(navi, 'tracker') }}" href="{{ path('app_tracker') }}">Habit Tracker</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Mange your Habits</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ macros.activeNavi(navi, 'tracker') }}" href="{{ path('app_tracker') }}">Habit
+                        Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ macros.activeNavi(navi, 'habits') }}" href="{{ path('app_habits') }}">Habits</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ macros.activeNavi(navi, 'goals') }}" href="{{ path('app_goals') }}">Goals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ macros.activeNavi(navi, 'todos') }}" href="{{ path('app_todos') }}">To-Dos</a>
+                </li>
             {% endif %}
         </ul>
     </div>

@@ -1,8 +1,9 @@
-a.nav-link {
-    color: #f2f2f2;
-}
-.nav-link:hover {
-    color: #495057;
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Raleway&display=swap');
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
 }
 
 main {
@@ -10,6 +11,14 @@ main {
     padding-bottom: 120px;
     padding-top: 40px;
 }
+
+a.nav-link {
+    color: #f2f2f2;
+}
+.nav-link:hover {
+    color: #495057;
+}
+
 
 .display-2 , .lead {
     color: #f2f2f2;
@@ -23,6 +32,9 @@ main {
     width: 50%;
 }
 
+/**********
+* Calendar
+**********/
 .check-button {
     background-color: #e2dfdf8a; /* Green */
     border: none;
@@ -47,4 +59,53 @@ main {
 .checked {
     background-color: #17a2b8 !important;
     color: #f2f2f2;
+}
+
+/**********
+* Todos and Goals
+**********/
+ol {
+    list-style: none;
+    counter-reset: my-awesome-counter;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+ol li {
+    counter-increment: my-awesome-counter;
+    display: flex;
+    width: 100%;
+    font-size: 1.0rem;
+    margin-bottom: 1.5rem;
+    min-height: 0.77rem;
+    position: relative;
+}
+
+ol li:first-child {
+    margin-top: 1.5rem;
+}
+
+ol li::before {
+    content: "0" counter(my-awesome-counter);
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    margin-top: 0.1rem;
+    line-height: 1;
+    font-family: 'Abril Fatface', serif;
+    color: #17a2b8;
+}
+.is-done {
+    text-decoration: line-through;
+    color: lightgray!important;
+}
+
+.btn-icon{
+    margin-right: 10px;
+    color: #17a2b8;
+}
+
+.btn-icon:hover {
+    margin-right: 10px;
+    color: #17798F;
 }

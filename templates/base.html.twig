@@ -2,17 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Habit Tracker{% endblock %}</title>
+        <title>{% block title %}DAILYs{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
     </head>
     <body>
     {% block body %}
-    {% block header %}
-        {% include 'header.html.twig' %}
-    {% endblock header %}
+        {% block header %}
+            {% include 'header.html.twig' %}
+        {% endblock header %}
         <main class="container">
             {% block main %}{% endblock main %}
         </main>
@@ -20,7 +21,7 @@
         <footer class="footer mt-auto py-3 bg-info">
             <div class="container">
                 <ul class="nav">
-                    <li class="">
+                    <li>
                         {% if is_granted('ROLE_USER') %}
                             <a class="nav-link" href="{{ path('app_reset_password') }}">Change password</a>
                         {% endif %}
@@ -32,7 +33,6 @@
             </div>
         </footer>
     {% endblock %}
-
 
     {% block javascripts %}
     {% endblock %}
