@@ -2,59 +2,46 @@
 
 namespace App\Twig;
 
-use App\Entity\Day;
-use App\Entity\Habit;
-use App\Entity\Month;
-use App\Entity\MonthToHabit;
-use App\Repository\MonthHabitToDayRepository;
+use App\Repository\CheckedRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-
     /**
-     * @var MonthHabitToDayRepository
+     * @var CheckedRepository
      */
-    private $monthHabitToDayRepository;
+    private $checkedRepository;
 
     /**
      * AppExtension constructor.
-     * @param MonthHabitToDayRepository $monthHabitToDayRepository
+     * @param CheckedRepository $checkedRepository
      */
-    public function __construct(MonthHabitToDayRepository $monthHabitToDayRepository)
+    public function __construct(CheckedRepository $checkedRepository)
     {
-        $this->monthHabitToDayRepository = $monthHabitToDayRepository;
+        $this->checkedRepository = $checkedRepository;
     }
 
     public function getFilters(): array
     {
         return [
-            // If your filter generates SAFE HTML, you should add a third
-            // parameter: ['is_safe' => ['html']]
-            // Reference: https://twig.symfony.com/doc/2.x/advanced.html#automatic-escaping
             new TwigFilter('habit_is_checked', [$this, 'habitIsChecked']),
         ];
     }
 
-
     /**
      * @param $value
      * @param int $habit
-     * @param int $month
-     * @param int $day
+     * @param string $date
      *
      * @return string
+     * @throws \Exception
      */
-    public function habitIsChecked($value, int $habit, int $month, int $day)
+    public function habitIsChecked($value, int $habit, string $date)
     {
-        $monthHabitToDay = $this->monthHabitToDayRepository->findOneBy([
-            'habit' => $habit,
-            'month' => $month,
-            'day' => $day
-        ]);
+        $date = new \DateTime($date);
+        $checkedHabit = $this->checkedRepository->findOneBy(['habit' => $habit, 'checkedAt' => $date]);
 
-        return $monthHabitToDay->isChecked() ? 'checked' : '';
+        return $checkedHabit ? 'checked' : '';
     }
 }
