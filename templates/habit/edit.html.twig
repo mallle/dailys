@@ -3,58 +3,23 @@
 {% block title %}Your habit!{% endblock %}
 
 {% block main %}
-
-
-    <div class="d-flex justify-content-between p-2">
-        <h1>
-            {% if habit.id %}
-                Edit your habit: <br>{{ habit.name }}
-            {% else %}
-                Add a new habit
-            {% endif %}
-        </h1>
-        <div class="">
-            <a href="{{ path('app_habits')}}" class="btn btn-sm btn-outline-secondary">Back to list with Habits</a>
-        </div>
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_habits')}}" class="btn btn-sm btn-outline-secondary">Back to list with Habits</a>
     </div>
-
-
-    <div class="row">
-        <div class="col-6 pt-5 pr-5">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
-        </div>
-
-        <div class="col-6 my-auto pl-5 pt-5">
-            {% if habit.id %}
-                {% if habit.monthToHabits|length > 0 %}
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for monthToHabit in habit.monthToHabits %}
-                                    <tr>
-                                        <td>{{ monthToHabit.month.name }}</td>
-                                        <td class="text-center">
-                                                <a href="{{ path('app_habits_months_remove', { monthToHabit: monthToHabit.id  })}}" class="btn btn-sm btn-outline-secondary">Remove</a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-
+    <div class="d-flex justify-content-center">
+        <div class="col-6 pt-5">
+            <h1>
+                {% if habit.id %}
+                    Edit your habit: <br>{{ habit.name }}
                 {% else %}
-                   <p>Add the months where you want to tack your habit</p>
-                    <a href="{{ path('app_habits_months', { habit: habit.id  })}}" class="btn btn-sm btn-outline-secondary">Add months</a>
+                    Add a new habit
                 {% endif %}
-            {% endif %}
+            </h1>
+            <div class="pt-5">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
 {% endblock %}

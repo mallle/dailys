@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Habit
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -29,26 +30,23 @@ class Habit
     private $Description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MonthHabitToDay", mappedBy="habit")
-     */
-    private $monthHabitToDays;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MonthToHabit", mappedBy="habit")
-     */
-    private $monthToHabits;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="habits")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Checked", mappedBy="habit")
+     */
+    private $checkeds;
+
 
     public function __construct()
     {
         $this->monthHabits = new ArrayCollection();
         $this->monthHabitToDays = new ArrayCollection();
         $this->monthToHabits = new ArrayCollection();
+        $this->checkeds = new ArrayCollection();
     }
 
 
@@ -81,69 +79,6 @@ class Habit
         return $this;
     }
 
-
-    /**
-     * @return Collection|MonthHabitToDay[]
-     */
-    public function getMonthHabitToDays(): Collection
-    {
-        return $this->monthHabitToDays;
-    }
-
-    public function addMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
-    {
-        if (!$this->monthHabitToDays->contains($monthHabitToDay)) {
-            $this->monthHabitToDays[] = $monthHabitToDay;
-            $monthHabitToDay->setHabit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMonthHabitToDay(MonthHabitToDay $monthHabitToDay): self
-    {
-        if ($this->monthHabitToDays->contains($monthHabitToDay)) {
-            $this->monthHabitToDays->removeElement($monthHabitToDay);
-            // set the owning side to null (unless already changed)
-            if ($monthHabitToDay->getHabit() === $this) {
-                $monthHabitToDay->setHabit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|MonthToHabit[]
-     */
-    public function getMonthToHabits(): Collection
-    {
-        return $this->monthToHabits;
-    }
-
-    public function addMonthToHabit(MonthToHabit $monthToHabit): self
-    {
-        if (!$this->monthToHabits->contains($monthToHabit)) {
-            $this->monthToHabits[] = $monthToHabit;
-            $monthToHabit->setHabit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMonthToHabit(MonthToHabit $monthToHabit): self
-    {
-        if ($this->monthToHabits->contains($monthToHabit)) {
-            $this->monthToHabits->removeElement($monthToHabit);
-            // set the owning side to null (unless already changed)
-            if ($monthToHabit->getHabit() === $this) {
-                $monthToHabit->setHabit(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?user
     {
         return $this->user;
@@ -152,6 +87,37 @@ class Habit
     public function setUser(?user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Checked[]
+     */
+    public function getCheckeds(): Collection
+    {
+        return $this->checkeds;
+    }
+
+    public function addChecked(Checked $checked): self
+    {
+        if (!$this->checkeds->contains($checked)) {
+            $this->checkeds[] = $checked;
+            $checked->setHabit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChecked(Checked $checked): self
+    {
+        if ($this->checkeds->contains($checked)) {
+            $this->checkeds->removeElement($checked);
+            // set the owning side to null (unless already changed)
+            if ($checked->getHabit() === $this) {
+                $checked->setHabit(null);
+            }
+        }
 
         return $this;
     }

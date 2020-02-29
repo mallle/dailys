@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Day;
+use App\Entity\Checked;
 use App\Entity\Habit;
-use App\Entity\Month;
-use App\Repository\DayRepository;
-use App\Repository\MonthHabitRepository;
-use App\Repository\MonthHabitToDayRepository;
-use App\Repository\MonthRepository;
+use App\Repository\CheckedRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,49 +28,63 @@ class HomeController extends BaseController
 
 
     /**
-     * @Route("/tracker", name="app_tracker")
-     * @param MonthRepository $monthRepository
-     * @param DayRepository $dayRepository
+     * @Route("/tracker/{month}", name="app_tracker")
      *
+     * @param string|null $month
      * @return Response
+     * @throws \Exception
      */
-    public function tracker(MonthRepository $monthRepository, DayRepository $dayRepository)
+    public function tracker(string $month = null)
     {
         $habits = $this->getUser()->getHabits();
 
-        $months = $monthRepository->findMonthForUser($this->getUser());
+        if(!$month){
+            $time = new \DateTime();
+        }else{
+            $time = new \DateTime($month);
+        }
 
-        $days = $dayRepository->findAll();
+        $nextMonth = date('Y-m-d', strtotime('+1 month', $time->getTimestamp()));
+        $lastMonth = date('Y-m-d', strtotime('-1 month', $time->getTimestamp()));
 
         return $this->render('tracker.html.twig', [
             'navi' => 'tracker',
-            'months' => $months,
-            'days' => $days,
             'habits' => $habits,
+            'time' => $time,
+            'nextMonth' => $nextMonth,
+            'lastMonth' => $lastMonth,
         ]);
     }
 
-
     /**
-     * @Route("/check/{habit}/{month}/{day}", name="app_months_habits_check")
+     * @Route("/check/{habit}/{date}", name="app_habit_check")
      *
      * @param Habit $habit
-     * @param Day $day
-     *
-     * @param Month $month
-     * @param MonthHabitToDayRepository $monthHabitToDayRepository
+     * @param string $date
      * @param EntityManagerInterface $em
+     * @param CheckedRepository $checkedRepository
+     *
      * @return RedirectResponse
+     * @throws \Exception
      */
-    public function check(Habit $habit, Day $day, Month $month, MonthHabitToDayRepository $monthHabitToDayRepository, EntityManagerInterface $em)
+    public function checkHabit(Habit $habit, string $date, EntityManagerInterface $em, CheckedRepository $checkedRepository) : RedirectResponse
     {
+        $date = new \DateTime($date);
+        $checkedHabit = $checkedRepository->findOneBy(['habit' => $habit->getId(), 'checkedAt' => $date]);
 
-        $monthHabitToDay = $monthHabitToDayRepository->findOneBy(['habit' => $habit, 'month' => $month, 'day' => $day]);
+        if($checkedHabit) {
+            $em->remove($checkedHabit);
+            $em->flush();
+            return $this->redirect($this->generateUrl('app_tracker'));
+        }
 
-        $monthHabitToDay->setChecked(!$monthHabitToDay->isChecked());
+        $checked = new Checked();
 
+        $checked->setHabit($habit);
+        $checked->setCheckedAt($date);
+        $em->persist($checked);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('app_tracker'));
+        return $this->redirect($this->generateUrl('app_tracker', ['month' => $date->format('Y-m-01')]));
     }
 }

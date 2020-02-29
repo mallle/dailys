@@ -3,14 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Habit;
-use App\Entity\Month;
-use App\Entity\MonthHabitToDay;
-use App\Entity\MonthToHabit;
+
 use App\Entity\User;
 use App\Form\HabitType;
-use App\Repository\DayRepository;
 use App\Repository\HabitRepository;
-use App\Repository\MonthRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -29,20 +25,13 @@ class HabitController extends BaseController
     private $em;
 
     /**
-     * @var MonthRepository
-     */
-    private $monthRepository;
-
-    /**
      * HabitController constructor.
      *
      * @param EntityManagerInterface $em
-     * @param MonthRepository $monthRepository
      */
-    public function __construct(EntityManagerInterface $em, MonthRepository $monthRepository)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->monthRepository = $monthRepository;
     }
 
     /**
@@ -142,7 +131,6 @@ class HabitController extends BaseController
                 $this->em->persist($habit);
                 $this->em->flush();
 
-                $months = $this->monthRepository->findAll();
                 return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
             }
             //$this->addFlashMessage('error', '');
@@ -153,97 +141,6 @@ class HabitController extends BaseController
             'form' => $formInterface->createView(),
             'habit' => $habit,
         ]);
-    }
-
-    /**
-     * @Route("/habits/{habit}/months", name="app_habits_months")
-     *
-     * @param Habit $habit
-     * @param Request $request
-     *
-     * @return RedirectResponse|Response
-     */
-    public function addMonthsToHabit(Habit $habit, Request $request, DayRepository $dayRepository)
-    {
-
-        $months = $this->monthRepository->findAll();
-
-        $form = $this->createFormBuilder()
-            ->add('months', ChoiceType::class, [
-                'choices' => [
-                    array_combine((Month::MONTHS), Month::MONTHS),
-                ],
-                'multiple' => TRUE,
-                'expanded' => TRUE,
-            ])
-            ->add('confirm', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-sm btn-outline-secondary'
-                ]
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-
-                $data = $form->getData();
-
-                foreach ($data['months'] as $month){
-
-                    $month = $this->monthRepository->findOneBy(['name' => $month]);
-
-                    $monthToHabit = new MonthToHabit();
-                    $monthToHabit->setHabit($habit);
-                    $monthToHabit->setMonth($month);
-                    $this->em->persist($monthToHabit);
-
-                    $days = $dayRepository->findAll();
-                    foreach($days as $day){
-                        $monthHabitToDay = new MonthHabitToDay();
-                        $monthHabitToDay->setMonth($month);
-                        $monthHabitToDay->setHabit($habit);
-                        $monthHabitToDay->setDay($day);
-                        $this->em->persist($monthHabitToDay);
-                    }
-
-                }
-
-                $this->em->flush();
-
-                return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
-            }
-            //$this->addFlashMessage('error', '');
-        }
-
-        return $this->render('habit/addMonths.html.twig', [
-            'navi' => 'habits',
-            'habit' => $habit,
-            'months' => $months,
-            'form' => $form->createView(),
-        ]);
-    }
-
-
-    /**
-     * @Route("/habits/{monthToHabit}", name="app_habits_months_remove")
-     *
-     * @param MonthToHabit $monthToHabit
-     * @param EntityManagerInterface $em
-     *
-     * @return RedirectResponse
-     */
-    public function removeMonthFromHabit(MonthToHabit $monthToHabit, EntityManagerInterface $em){
-
-        $habit = $monthToHabit->getHabit();
-
-        $em->remove($monthToHabit);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('app_habits_edit', ['habit' => $habit->getId()]));
-
     }
 
     /**
