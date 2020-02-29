@@ -51,7 +51,7 @@ class TransferDataCommand extends Command
         $user2 = $this->userRepository->find('12');
 
         foreach ($user1->getHabits() as $habit){
-            if($habit->getId() === 32){
+            if($habit->getId() === '32'){
                 for($i = 1; $i <= 29; $i++ ){
                     $date = new \DateTime( $i . ' February 2020');
 
@@ -61,11 +61,11 @@ class TransferDataCommand extends Command
                     $this->entityManager->persist($checked);
                 }
             }
+            $this->entityManager->flush();
         }
-        $this->entityManager->flush();
 
         foreach ($user2->getHabits() as $habit){
-            if($habit->getId() === 52 || $habit->getId() === 62){
+            if($habit->getId() === '62'){
                 for($i = 1; $i <= 29; $i++ ){
                     $date = new \DateTime( $i . ' February 2020');
                     $checked = new Checked();
@@ -73,10 +73,20 @@ class TransferDataCommand extends Command
                     $checked->setCheckedAt($date);
                     $this->entityManager->persist($checked);
                 }
+                $this->entityManager->flush();
+            }
+            if($habit->getId() === '52'){
+                for($i = 1; $i <= 29; $i++ ){
+                    $date = new \DateTime( $i . ' February 2020');
+                    $checked = new Checked();
+                    $checked->setHabit($habit);
+                    $checked->setCheckedAt($date);
+                    $this->entityManager->persist($checked);
+                }
+                $this->entityManager->flush();
             }
         }
-        $this->entityManager->flush();
-        
+
         $io->success('The data where transferred');
 
         return 0;
