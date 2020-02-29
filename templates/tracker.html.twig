@@ -48,7 +48,7 @@
                                   name="formName">
                                 <div class="d-flex flex-column">
                                     <button type="submit"
-                                            class="p-2  check-button {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"> {{ habit.name }}
+                                            class="check-button {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"> {{ habit.name }}
                                     </button>
                                 </div>
                             </form>
