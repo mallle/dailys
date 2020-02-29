@@ -40,9 +40,21 @@ class User implements UserInterface
      */
     private $habits;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Goal", mappedBy="user")
+     */
+    private $goals;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ToDo", mappedBy="user")
+     */
+    private $toDos;
+
     public function __construct()
     {
         $this->habits = new ArrayCollection();
+        $this->goals = new ArrayCollection();
+        $this->toDos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +160,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($habit->getUser() === $this) {
                 $habit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Goal[]
+     */
+    public function getGoals(): Collection
+    {
+        return $this->goals;
+    }
+
+    public function addGoal(Goal $goal): self
+    {
+        if (!$this->goals->contains($goal)) {
+            $this->goals[] = $goal;
+            $goal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGoal(Goal $goal): self
+    {
+        if ($this->goals->contains($goal)) {
+            $this->goals->removeElement($goal);
+            // set the owning side to null (unless already changed)
+            if ($goal->getUser() === $this) {
+                $goal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ToDo[]
+     */
+    public function getToDos(): Collection
+    {
+        return $this->toDos;
+    }
+
+    public function addToDo(ToDo $toDo): self
+    {
+        if (!$this->toDos->contains($toDo)) {
+            $this->toDos[] = $toDo;
+            $toDo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToDo(ToDo $toDo): self
+    {
+        if ($this->toDos->contains($toDo)) {
+            $this->toDos->removeElement($toDo);
+            // set the owning side to null (unless already changed)
+            if ($toDo->getUser() === $this) {
+                $toDo->setUser(null);
             }
         }
 

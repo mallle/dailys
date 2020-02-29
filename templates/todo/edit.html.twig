@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your To-Dos!{% endblock %}
+
+{% block main %}
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_todos')}}" class="btn btn-sm btn-outline-secondary">Back to list with To-Dos</a>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="col-6 pt-5">
+            <h1>
+                {% if todo.id %}
+                    Edit your To-Do: <br>{{ todo.name }}
+                {% else %}
+                    Add a new To-Do
+                {% endif %}
+            </h1>
+            <div class="pt-5">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

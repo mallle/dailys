@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All your habits{% endblock %}
+
+{% block main %}
+
+    <div class="d-flex justify-content-between p-2">
+        <h1>All To-Dos</h1>
+        <div class="d-">
+            <a href="{{ path('app_todos_new')}}" class="btn btn-sm btn-outline-secondary">New</a>
+        </div>
+    </div>
+    {% if todos|length > 0 %}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for todo in todos %}
+                    <tr>
+                        <td>{{ todo.name }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_todos_edit', { 'todo': todo.id })}}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a href="{{ path('app_todos_delete', { 'todo': todo.id })}}" class="btn btn-sm btn-outline-secondary">Delete</a>
+                            <a href="{{ path('app_todos_done', { 'todo': todo.id })}}" class="btn btn-sm btn-outline-secondary">Done</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Add a new To-Do before you can manage and track them 😁</p>
+    {% endif %}
+
+{% endblock %}
