@@ -109,3 +109,14 @@ ol li::before {
     margin-right: 10px;
     color: #17798F;
 }
+
+
+@media only screen and (max-device-width: 992em) {
+    .display-2{
+        font-size: 4.5rem;
+    }
+
+    .h1, h1{
+        font-size: 2rem;
+    }
+}

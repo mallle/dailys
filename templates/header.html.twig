@@ -23,7 +23,7 @@
         <p class="lead text-center pb-5">Habit-Tracker/To-Dos/Goals/Schedule</p>
     </div>
     <div class="container pt-5">
-        <ul class="nav nav-tabs justify-content-center mb-5">
+        <ul class="nav nav-tabs justify-content-center">
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item">
                     <a class="nav-link {{ macros.activeNavi(navi, 'tracker') }}" href="{{ path('app_tracker') }}">Habit

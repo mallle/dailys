@@ -3,14 +3,12 @@
 {% block title %}All your Goals{% endblock %}
 
 {% block main %}
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('app_goals_new')}}" class="btn-icon"><i class="fas fa-plus-circle"></i></a>
+    </div>
     <div class="row justify-content-md-center">
-        <div class="col-lg-8 align-self-center">
-            <div class="d-flex justify-content-between p-2">
-                <h1>All your Goals</h1>
-                <div class="d-">
-                    <a href="{{ path('app_goals_new')}}" class="btn btn-sm btn-outline-secondary">New</a>
-                </div>
-            </div>
+        <div class="col-lg-8">
+            <h1>All your Goals</h1>
             {% if goals|length > 0 %}
                 <ol>
                     {% for goal in goals %}
