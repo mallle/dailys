@@ -1,122 +1,126 @@
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Raleway&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Raleway&display=swap");
 html,
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Raleway', sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway", sans-serif;
 }
 
 main {
-    min-height: 90vh;
-    padding-bottom: 120px;
-    padding-top: 40px;
+  min-height: 90vh;
+  padding-bottom: 120px;
+  padding-top: 40px;
 }
 
 a.nav-link {
-    color: #f2f2f2;
+  color: #f2f2f2;
 }
 .nav-link:hover {
-    color: #495057;
+  color: #495057;
 }
 
-
-.display-2 , .lead {
-    color: #f2f2f2;
+.display-2,
+.lead {
+  color: #f2f2f2;
 }
 
 .nav-tabs {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .form-signin {
-    width: 50%;
+  width: 50%;
 }
 
 /**********
 * Calendar
 **********/
 .check-button {
-    background-color: #e2dfdf8a; /* Green */
-    border: none;
-    padding: 10px 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    color: #6c757d;
+  background-color: #e2dfdf8a; /* Green */
+  border: none;
+  padding: 10px 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: #6c757d;
 }
 
 .check-button:hover {
-    background-color: #17a2b8 !important;
-    color: #f2f2f2;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out;
+  background-color: #17a2b8 !important;
+  color: #f2f2f2;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
 .btn {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .checked {
-    background-color: #17a2b8 !important;
-    color: #f2f2f2;
+  background-color: #17a2b8 !important;
+  color: #f2f2f2;
 }
 
 /**********
 * Todos and Goals
 **********/
 ol {
-    list-style: none;
-    counter-reset: my-awesome-counter;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  counter-reset: my-awesome-counter;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 ol li {
-    counter-increment: my-awesome-counter;
-    display: flex;
-    width: 100%;
-    font-size: 1.0rem;
-    margin-bottom: 1.5rem;
-    min-height: 0.77rem;
-    position: relative;
+  counter-increment: my-awesome-counter;
+  display: flex;
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  min-height: 0.77rem;
+  position: relative;
 }
 
 ol li:first-child {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 ol li::before {
-    content: "0" counter(my-awesome-counter);
-    font-size: 2rem;
-    margin-right: 0.5rem;
-    margin-top: 0.1rem;
-    line-height: 1;
-    font-family: 'Abril Fatface', serif;
-    color: #17a2b8;
+  content: "0" counter(my-awesome-counter);
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  margin-top: 0.1rem;
+  line-height: 1;
+  font-family: "Abril Fatface", serif;
+  color: #17a2b8;
 }
 .is-done {
-    text-decoration: line-through;
-    color: lightgray!important;
+  text-decoration: line-through;
+  color: lightgray !important;
 }
 
-.btn-icon{
-    margin-right: 10px;
-    color: #17a2b8;
+.btn-icon {
+  margin-right: 10px;
+  color: #17a2b8;
 }
 
 .btn-icon:hover {
-    margin-right: 10px;
-    color: #17798F;
+  margin-right: 10px;
+  color: #17798f;
 }
 
-
 @media only screen and (max-device-width: 992em) {
-    .h1, h1{
-        font-size: 2rem;
-    }
+  .h1,
+  h1 {
+    font-size: 2rem;
+  }
 
-    .display-2{
-        font-size: 3.5rem;
-    }
+  .display-2 {
+    font-size: 3.5rem;
+  }
+
+  .display-6 {
+    font-size: 1.5rem;
+  }
 }
