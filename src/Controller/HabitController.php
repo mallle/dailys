@@ -55,7 +55,7 @@ class HabitController extends BaseController
      *
      * @return RedirectResponse|Response
      */
-    function new (Request $request) {
+    function new(Request $request) {
 
         $habit = new Habit();
 

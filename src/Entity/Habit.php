@@ -22,12 +22,17 @@ class Habit
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $Description;
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default": "#17a2b8"})
+     */
+    private $color = '#17a2b8';
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="habits")
@@ -57,24 +62,36 @@ class Habit
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

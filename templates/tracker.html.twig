@@ -90,7 +90,7 @@
                 {% set year = time|date('Y') %}
                 {% set weekday = day ~ '.' ~ month ~ '.' ~ year %}
                 {% set weekday = weekday|date('D') %}
-                    <div class="col-6 border">
+                    <div class="col-6 border" id="{{day ~ time|date('FY') }}">
                         <div class="col-12 text-center align-self-center">
                             {% if day == time|date('d') %}
                                 <p class="text-info">{{ day }}. {{ weekday }}</p>
@@ -98,17 +98,19 @@
                                 <p>{{ day }}. {{ weekday }}</p>
                             {% endif %}
                         </div>
-                        <div class="col-12 mt-2">
-                            {% for habit in habits %}
-                                <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
-                                    name="formName">
-                                    <div class="d-flex flex-column">
-                                        <button type="submit"
-                                                class="check-button {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"> {{ habit.name }}
-                                        </button>
+                        <div class="col-12">
+                            <div class="row no-gutters">
+                                {% for habit in habits %}
+                                    <div class="col-2">
+                                        <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
+                                            name="formName">
+                                                <button type="submit" style="color: {{ habit.color }}"
+                                                        class="check-button-mobile {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"> {{ habit.name | first}}
+                                                </button>
+                                        </form>
                                     </div>
-                                </form>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
             {% endfor %}
