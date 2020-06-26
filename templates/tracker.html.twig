@@ -18,7 +18,8 @@
                        href="{{ path('app_tracker', {'month': lastMonth}) }}"><i class="fas fa-chevron-circle-left"></i></a>
                     <h1 class="display-4">{{ time|date('F Y') }}</h1>
                     <a class="align-self-center btn-icon"
-                       href="{{ path('app_tracker', {'month': nextMonth}) }}"><i class="fas fa-chevron-circle-right"></i></a>
+                       href="{{ path('app_tracker', {'month': nextMonth}) }}"><i
+                                class="fas fa-chevron-circle-right"></i></a>
                 </div>
             </th>
         </tr>
@@ -90,30 +91,36 @@
                 {% set year = time|date('Y') %}
                 {% set weekday = day ~ '.' ~ month ~ '.' ~ year %}
                 {% set weekday = weekday|date('D') %}
-                    <div class="col-6 border" id="{{day ~ time|date('FY') }}">
-                        <div class="col-12 text-center align-self-center">
-                            {% if day == time|date('d') %}
-                                <p class="text-info">{{ day }}. {{ weekday }}</p>
-                            {% else %}
-                                <p>{{ day }}. {{ weekday }}</p>
-                            {% endif %}
-                        </div>
-                        <div class="col-12">
-                            <div class="row no-gutters">
-                                {% for habit in habits %}
-                                    <div class="col-2">
-                                        <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
-                                            name="formName">
-                                                <button type="submit" style="color: {{ habit.color }}"
-                                                        class="check-button-mobile {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"> {{ habit.name | first}}
-                                                </button>
-                                        </form>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
+                <div class="col-6 border" id="{{day}}">
+                    <div class="col-12 text-center align-self-center">
+                        {% if day == time|date('d') %}
+                            <p class="text-info">{{ day }}. {{ weekday }}</p>
+                        {% else %}
+                            <p>{{ day }}. {{ weekday }}</p>
+                        {% endif %}
                     </div>
+                    <div class="d-flex justify-content-around flex-wrap mb-40">
+                        {% for habit in habits %}
+                            <div class="check-button-mobile {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}">
+                                <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
+                                      name="formName">
+                                    <button type="submit"
+                                            style="{{ habit_color(habit, day ~ time|date('FY'))}}"
+                                            class="btn"
+                                    > {{ habit.name | first }}
+                                    </button>
+
+                                </form>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('main.js') }}"></script>
 {% endblock %}

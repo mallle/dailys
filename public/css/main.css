@@ -6,6 +6,10 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 main {
   min-height: 90vh;
   padding-bottom: 120px;
@@ -49,14 +53,21 @@ a.nav-link {
 .check-button-mobile {
   background-color: #e2dfdf8a; /* Green */
   border: none;
-  /*paddsng: 10px;*/
-  min-width: 40px;
-  /*margin-bottom: 20px;*/
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  margin: 0 1px 10px 0;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  color: #6c757d;
+  font-weight: bold;
 }
+
+.check-button-mobile>p {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
 .check-button-mobile:hover,
 .check-button:hover {
   background-color: #17a2b8 !important;
