@@ -36,6 +36,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('habit_color', [$this, 'getHabitColor']),
+            new TwigFunction('habit_background_color', [$this, 'getHabitBackgroundColor']),
         ];
     }
 
@@ -67,6 +68,21 @@ class AppExtension extends AbstractExtension
         $date = new \DateTime($date);
         $checkedHabit = $this->checkedRepository->findOneBy(['habit' => $habit, 'checkedAt' => $date]);
 
-        return $checkedHabit !== null ? 'color: #f2f2f2' : 'color: ' . $habit->getColor();
+        return $checkedHabit !== null ? 'color: #f2f2f2;' : 'color: ' . $habit->getColor().';';
+    }
+
+    /**
+     * @param Habit $habit
+     * @param string $date
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getHabitBackgroundColor(Habit $habit, string $date)
+    {
+        $date = new \DateTime($date);
+        $checkedHabit = $this->checkedRepository->findOneBy(['habit' => $habit, 'checkedAt' => $date]);
+
+        return $checkedHabit  ? 'background-color: ' . $habit->getColor().';' : '';
     }
 }

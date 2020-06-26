@@ -101,15 +101,14 @@
                     </div>
                     <div class="d-flex justify-content-around flex-wrap mb-40">
                         {% for habit in habits %}
-                            <div class="check-button-mobile {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}">
+                            <div class="check-button-mobile ">
                                 <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
                                       name="formName">
                                     <button type="submit"
-                                            style="{{ habit_color(habit, day ~ time|date('FY'))}}"
-                                            class="btn"
+                                            style="{{ habit_color(habit, day ~ time|date('FY')) }} {{ habit_background_color(habit, day ~ time|date('FY')) }}"
+                                            class="btn {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"
                                     > {{ habit.name | first }}
                                     </button>
-
                                 </form>
                             </div>
                         {% endfor %}
