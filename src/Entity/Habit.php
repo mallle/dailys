@@ -35,6 +35,12 @@ class Habit
     private $color = '#17a2b8';
 
     /**
+     * @ORM\Column(type="boolean", options={"default": true})
+     * @var bool
+     */
+    private $showInTracker = true;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="habits")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -45,7 +51,6 @@ class Habit
      */
     private $checkeds;
 
-
     public function __construct()
     {
         $this->monthHabits = new ArrayCollection();
@@ -55,16 +60,26 @@ class Habit
     }
 
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -72,11 +87,18 @@ class Habit
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -84,11 +106,18 @@ class Habit
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getColor(): ?string
     {
         return $this->color;
     }
 
+    /**
+     * @param string $color
+     * @return $this
+     */
     public function setColor(string $color): self
     {
         $this->color = $color;
@@ -96,12 +125,39 @@ class Habit
         return $this;
     }
 
-    public function getUser(): ?user
+
+    /**
+     * @return bool|null
+     */
+    public function isShowInTracker(): ?bool
+    {
+        return $this->showInTracker;
+    }
+
+    /**
+     * @param bool $showInTracker
+     * @return $this
+     */
+    public function setShowInTracker(bool $showInTracker): self
+    {
+        $this->showInTracker = $showInTracker;
+
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    /**
+     * @param User|null $user
+     * @return $this
+     */
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
@@ -116,6 +172,10 @@ class Habit
         return $this->checkeds;
     }
 
+    /**
+     * @param Checked $checked
+     * @return $this
+     */
     public function addChecked(Checked $checked): self
     {
         if (!$this->checkeds->contains($checked)) {

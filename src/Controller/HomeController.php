@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Checked;
 use App\Entity\Habit;
 use App\Repository\CheckedRepository;
+use App\Repository\HabitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,9 +35,9 @@ class HomeController extends BaseController
      * @return Response
      * @throws \Exception
      */
-    public function tracker(string $month = null)
+    public function tracker(string $month = null, HabitRepository $habitRepository)
     {
-        $habits = $this->getUser()->getHabits();
+        $habits = $habitRepository->findBy(['user' => $this->getUser(), 'showInTracker' => true]);
 
         if(!$month){
             $time = new \DateTime();
