@@ -106,7 +106,7 @@
                                       name="formName">
                                     <button type="submit"
                                             style="{{ habit_color(habit, day ~ time|date('FY')) }} {{ habit_background_color(habit, day ~ time|date('FY')) }}"
-                                            class="btn {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY')) }}"
+                                            class="btn {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY'), true) }}"
                                     > {{ habit.name | first }}
                                     </button>
                                 </form>

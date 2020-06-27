@@ -44,16 +44,17 @@ class AppExtension extends AbstractExtension
      * @param $value
      * @param int $habit
      * @param string $date
+     * @param bool $mobile
      *
      * @return string
      * @throws \Exception
      */
-    public function habitIsChecked($value, int $habit, string $date)
+    public function habitIsChecked($value, int $habit, string $date, bool $mobile = false)
     {
         $date = new \DateTime($date);
         $checkedHabit = $this->checkedRepository->findOneBy(['habit' => $habit, 'checkedAt' => $date]);
-
-        return $checkedHabit ? 'checked' : '';
+        $mobile =  $mobile ? ' mobile' : '';
+        return $checkedHabit ? 'checked'.$mobile : '';
     }
 
     /**
