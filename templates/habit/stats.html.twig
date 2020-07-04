@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistics for {{ habit.name }}{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <script src="{{ asset('css/main.css') }}"></script>
+{% endblock css %}
+
+{% block main %}
+    <div class="d-flex flex-col justify-content-end">
+        <a href="{{ path('app_habits')}}" class="btn-icon"><i class="fas fa-chevron-circle-left"></i>List of habits</a>
+        <a href="{{ path('app_tracker')}}" class="btn-icon"><i class="fas fa-chevron-circle-left"></i>Tracker</a>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-8 align-self-center">
+            <h1>{{ habit.name }}</h1>
+            <p>Total: {{ habit.checkeds|length }}</p>
+            <p>This week: {{ habit.getNumberOfWeeklyCheckedHabits(week.monday, week.sunday)|length }}</p>
+        </div>
+    </div>
+{% endblock %}
+

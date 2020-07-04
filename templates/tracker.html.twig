@@ -9,6 +9,24 @@
 {% endblock css %}
 
 {% block main %}
+    <h1 class="text-center">All your Habits</h1>
+    {% if habits|length > 0 %}
+
+        {% for habit in habits %}
+
+                <div class="d-flex">
+                    <div class="check-button-mobile" style="color: {{ habit.color }}"><p>{{ habit.name | first }}</p></div>
+                    <div class="col-sm-4 mr-40 p-2"><p>{{ habit.name }}</p></div>
+                    <div class="wrapper p-2">
+                        <i class="fas fa-calendar-times"></i>
+                        <span class="badge badge-light">{{ habit.getNumberOfWeeklyCheckedHabits(week.monday, week.sunday)|length }}</>
+                    </div>
+                    <div class="p-2">
+                        <a href="{{ path('app_stats', { 'habit': habit.id })}}" class="btn-icon"><i class="far fa-chart-bar"></i></a>
+                    </div>
+                </div>
+        {% endfor %}
+    {% endif %}
     <table class="table table-bordered d-none d-lg-table">
         <thead>
         <tr class="month-name">

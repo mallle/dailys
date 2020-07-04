@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -197,5 +198,20 @@ class Habit
         }
 
         return $this;
+    }
+
+    /**
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     *
+     * @return Collection
+     */
+    public function getNumberOfWeeklyCheckedHabits(\DateTime $from = null,  \DateTime $to = null)
+    {
+        $criteria = Criteria::create();
+        $criteria->andWhere(Criteria::expr()->gte('checkedAt', $from));
+        $criteria->andWhere(Criteria::expr()->lte('checkedAt', $to));
+
+        return $this->getCheckeds()->matching($criteria);
     }
 }

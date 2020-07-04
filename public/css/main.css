@@ -139,6 +139,20 @@ ol li::before {
   color: #17798f;
 }
 
+.wrapper{
+  position: relative;
+}
+
+.wrapper span{
+  position: absolute;
+  top: 2px;
+  right: -2px;
+  background: #14a3b8;
+  border-radius: 100%;
+  font-size: 60%;
+  color: #fff;
+}
+
 @media only screen and (max-device-width: 992em) {
   .h1,
   h1 {
