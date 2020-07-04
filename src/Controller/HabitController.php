@@ -7,6 +7,7 @@ use App\Entity\Habit;
 use App\Entity\User;
 use App\Form\HabitType;
 use App\Repository\HabitRepository;
+use App\Services\DateHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,6 +142,30 @@ class HabitController extends BaseController
         ]);
     }
 
+
+    /**
+     * @Route("/stats/{habit}", name="app_stats")
+     *
+     * @param Habit $habit
+     * @param DateHelper $dateHelper
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function statistics(Habit $habit, DateHelper $dateHelper)
+    {
+        if($this->hasAccess($this->getUser(), $habit)){
+            return $this->redirect($this->generateUrl('app_habits'));
+        }
+
+        return $this->render('habit/stats.html.twig', [
+            'navi' => 'tracker',
+            'habit' => $habit,
+            'week' => $dateHelper->getWeekStartAndEnd(),
+        ]);
+    }
+
     /**
      * @param User $user
      * @param Habit $habit
@@ -153,5 +178,4 @@ class HabitController extends BaseController
         }
         return false;
     }
-
 }

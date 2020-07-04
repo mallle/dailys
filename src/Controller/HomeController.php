@@ -6,6 +6,7 @@ use App\Entity\Checked;
 use App\Entity\Habit;
 use App\Repository\CheckedRepository;
 use App\Repository\HabitRepository;
+use App\Services\DateHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ class HomeController extends BaseController
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception
      */
-    public function tracker(string $month = null, HabitRepository $habitRepository, CheckedRepository $checkedRepo)
+    public function tracker(string $month = null, HabitRepository $habitRepository, CheckedRepository $checkedRepo, DateHelper $dateHelper)
     {
         $habits = $habitRepository->findBy(['user' => $this->getUser(), 'showInTracker' => true]);
 
@@ -59,7 +60,7 @@ class HomeController extends BaseController
             'time' => $time,
             'nextMonth' => $nextMonth,
             'lastMonth' => $lastMonth,
-            'week' => $this->getWeekStartAndEnd(),
+            'week' => $dateHelper->getWeekStartAndEnd(),
         ]);
     }
 
@@ -93,51 +94,5 @@ class HomeController extends BaseController
         $em->flush();
 
         return $this->redirect($this->generateUrl('app_tracker', ['month' => $date->format('Y-m-01')]));
-    }
-
-    /**
-     * @Route("/stats/{habit}", name="app_stats")
-     *
-     * @param Habit $habit
-     *
-     * @return Response
-     *
-     * @throws \Exception
-     */
-    public function statistics(Habit $habit)
-    {
-        return $this->render('habit/stats.html.twig', [
-            'navi' => 'tracker',
-            'habit' => $habit,
-            'week' => $this->getWeekStartAndEnd(),
-        ]);
-    }
-
-    /**
-     * @return array
-     *
-     * @throws \Exception
-     */
-    public function getWeekStartAndEnd() :array
-    {
-        $today = new \DateTime();
-        $monday = null;
-        $sunday = null;
-
-        if(date('D', $today->getTimestamp()) === 'Mon'){
-            $monday = $today;
-        } else {
-            $monday = new \DateTime("previous monday" );
-        }
-        if(date('D', $today->getTimestamp()) === 'Sun'){
-            $sunday = $today;
-        } else {
-            $sunday = new \DateTime("next sunday" );
-        }
-
-        return [
-            'monday' => $monday,
-            'sunday' => $sunday,
-        ];
     }
 }

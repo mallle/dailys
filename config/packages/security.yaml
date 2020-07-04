@@ -41,3 +41,4 @@ security:
 
         - { path: ^/habits, roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/tracker, roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/stats, roles: IS_AUTHENTICATED_REMEMBERED }
