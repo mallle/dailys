@@ -15,9 +15,9 @@ class DateHelper
     public function getWeekStartAndEnd() :array
     {
         $today = new \DateTime();
+        $today->setTime(0,0,0,0);
         $monday = null;
         $sunday = null;
-
         if(date('D', $today->getTimestamp()) === 'Mon'){
             $monday = $today;
         } else {

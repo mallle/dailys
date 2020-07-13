@@ -34,14 +34,13 @@ class HomeController extends BaseController
      *
      * @param string|null $month
      * @param HabitRepository $habitRepository
-     * @param CheckedRepository $checkedRepo
+     * @param DateHelper $dateHelper
      *
      * @return Response
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Exception
      */
-    public function tracker(string $month = null, HabitRepository $habitRepository, CheckedRepository $checkedRepo, DateHelper $dateHelper)
+    public function tracker(HabitRepository $habitRepository, DateHelper $dateHelper, string $month = null)
     {
         $habits = $habitRepository->findBy(['user' => $this->getUser(), 'showInTracker' => true]);
 
