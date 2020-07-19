@@ -12,3 +12,6 @@
 
 ###> PHP-Storm ###
 .idea
+
+###> Scripts ###
+copy.sh
