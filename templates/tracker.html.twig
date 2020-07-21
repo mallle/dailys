@@ -9,7 +9,7 @@
 {% endblock css %}
 
 {% block main %}
-    <h1 class="text-center mb-4">Track your habits</h1>
+    <h1 class="text-center mb-5">Track your habits</h1>
     {% if habits|length > 0 %}
 
         {% for habit in habits %}
@@ -120,14 +120,11 @@
                     <div class="d-flex justify-content-around flex-wrap mb-40">
                         {% for habit in habits %}
                             <div class="check-button-mobile ">
-                                <form action="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
-                                      name="formName">
-                                    <button type="submit"
-                                            style="{{ habit_color(habit, day ~ time|date('FY')) }} {{ habit_background_color(habit, day ~ time|date('FY')) }}"
-                                            class="btn {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY'), true) }}"
-                                    > {{ habit.name | first }}
-                                    </button>
-                                </form>
+                                <a href="{{ path('app_habit_check', {'habit': habit.id, 'date': day ~ time|date('FY') }) }}"
+                                    style="{{ habit_color(habit, day ~ time|date('FY')) }} {{ habit_background_color(habit, day ~ time|date('FY')) }}"
+                                    class="btn {{ 'checked' | habit_is_checked(habit.id, day ~ time|date('FY'), true) }}"
+                                > {{ habit.name | first }}
+                                </a>
                             </div>
                         {% endfor %}
                     </div>

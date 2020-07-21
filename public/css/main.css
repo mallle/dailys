@@ -70,13 +70,15 @@ a.nav-link {
 
 .check-button-mobile:hover,
 .check-button:hover {
-  background-color: #17a2b8;
   color: #f2f2f2;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
 .btn {
   border-radius: 0;
+}
+.btn:focus {
+  box-shadow: none;
 }
 
 .checked {
