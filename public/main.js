@@ -1,7 +1,7 @@
 new Vue({
   el: "#tracker",
   delimiters: ["${", "}"],
-  created() {
+  mounted() {
     let date = new Date();
     document.getElementById("" + date.getDate()).scrollIntoView({
       behavior: "smooth",
