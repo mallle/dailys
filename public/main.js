@@ -9,8 +9,8 @@ new Vue({
   },
   methods: {
     checkHabit: function (e) {
-      let element = e.path[0];
-      let url = element.attributes["data-url"].nodeValue;
+      let element = e.target;
+      let url = element.getAttribute('data-url');
       axios({
         method: "post",
         url: url,
@@ -19,9 +19,7 @@ new Vue({
         let parentElement = element.parentNode;
         parentElement.style.backgroundColor = data.bgColor;
         element.style.color = data.color;
-        element.innerHTML ='fehler!';
       }).catch((e) => {
-        element.innerHTML = 'fehler!';
       });
     },
   },
