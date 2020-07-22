@@ -1,7 +1,7 @@
 new Vue({
   el: "#tracker",
   delimiters: ["${", "}"],
-  mounted() {
+  created() {
     let date = new Date();
     document.getElementById("" + date.getDate()).scrollIntoView({
       behavior: "smooth",
@@ -19,8 +19,9 @@ new Vue({
         let parentElement = element.parentNode;
         parentElement.style.backgroundColor = data.bgColor;
         element.style.color = data.color;
+        element.innerHTML ='fehler!';
       }).catch((e) => {
-
+        element.innerHTML = 'fehler!';
       });
     },
   },
