@@ -61,17 +61,24 @@ a.nav-link {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
+  padding-top: 8px;
+  color: #000;
 }
 
-.check-button-mobile>p {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
+.check-button-mobile a {
+  color: #000;
+  text-decoration: none;
 }
 
 .check-button-mobile:hover,
 .check-button:hover {
-  color: #f2f2f2;
+  background-color: #17a2b8;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.check-button:hover a {
+  color: #fff !important;
+  text-decoration: none;
 }
 
 .btn {
@@ -141,11 +148,11 @@ ol li::before {
   color: #17798f;
 }
 
-.wrapper{
+.wrapper {
   position: relative;
 }
 
-.wrapper span{
+.wrapper span {
   position: absolute;
   top: 2px;
   right: -2px;

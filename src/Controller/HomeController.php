@@ -8,7 +8,7 @@ use App\Repository\CheckedRepository;
 use App\Repository\HabitRepository;
 use App\Services\DateHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -70,11 +70,11 @@ class HomeController extends BaseController
      * @param string $date
      * @param EntityManagerInterface $em
      * @param CheckedRepository $checkedRepository
-     *
-     * @return RedirectResponse
+     * 
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function checkHabit(Habit $habit, string $date, EntityManagerInterface $em, CheckedRepository $checkedRepository) : RedirectResponse
+    public function checkHabit(Habit $habit, string $date, EntityManagerInterface $em, CheckedRepository $checkedRepository) : JsonResponse
     {
         $date = new \DateTime($date);
         $checkedHabit = $checkedRepository->findOneBy(['habit' => $habit->getId(), 'checkedAt' => $date]);
@@ -82,7 +82,7 @@ class HomeController extends BaseController
         if($checkedHabit) {
             $em->remove($checkedHabit);
             $em->flush();
-            return $this->redirect($this->generateUrl('app_tracker'));
+            return new JsonResponse(['checked' =>'false', 'bgColor' => Habit::BG_COLOR, 'color' => $habit->getColor()]);
         }
 
         $checked = new Checked();
@@ -92,6 +92,6 @@ class HomeController extends BaseController
         $em->persist($checked);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('app_tracker', ['month' => $date->format('Y-m-01')]));
+        return new JsonResponse(['checked' => 'true', 'bgColor' => $habit->getColor(), 'color' => Habit::COLOR_WHITE]);
     }
 }

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Habit
 {
 
+    const BG_COLOR = '#e2dfdf8a';
+    const COLOR_WHITE = '#fff';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
