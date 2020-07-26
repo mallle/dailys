@@ -74,15 +74,23 @@ class HomeController extends BaseController
      * @return JsonResponse
      * @throws \Exception
      */
-    public function checkHabit(Habit $habit, string $date, EntityManagerInterface $em, CheckedRepository $checkedRepository) : JsonResponse
+    public function checkHabit(Habit $habit, string $date, DateHelper $dateHelper, EntityManagerInterface $em, CheckedRepository $checkedRepository) : JsonResponse
     {
         $date = new \DateTime($date);
         $checkedHabit = $checkedRepository->findOneBy(['habit' => $habit->getId(), 'checkedAt' => $date]);
+        $week = $dateHelper->getWeekStartAndEnd();
 
         if($checkedHabit) {
             $em->remove($checkedHabit);
             $em->flush();
-            return new JsonResponse(['checked' =>'false', 'bgColor' => Habit::BG_COLOR, 'color' => $habit->getColor()]);
+
+            return new JsonResponse([
+                'id' => $habit->getId(),
+                'checked' =>'false',
+                'bgColor' => Habit::BG_COLOR,
+                'color' => $habit->getColor(),
+                'count' => $habit->getNumberOfWeeklyCheckedHabits($week['monday'], $week['sunday'])->count()
+            ]);
         }
 
         $checked = new Checked();
@@ -92,6 +100,12 @@ class HomeController extends BaseController
         $em->persist($checked);
         $em->flush();
 
-        return new JsonResponse(['checked' => 'true', 'bgColor' => $habit->getColor(), 'color' => Habit::COLOR_WHITE]);
+        return new JsonResponse([
+            'id' => $habit->getId(),
+            'checked' => 'true',
+            'bgColor' => $habit->getColor(),
+            'color' => Habit::COLOR_WHITE,
+            'count' => $habit->getNumberOfWeeklyCheckedHabits($week['monday'], $week['sunday'])->count()
+        ]);
     }
 }

@@ -16,9 +16,13 @@ new Vue({
         url: url,
       }).then((response) => {
         let data = response.data;
+        // Change the color of the checked habit
         let parentElement = element.parentNode;
         parentElement.style.backgroundColor = data.bgColor;
         element.style.color = data.color;
+        // Update the count in the badge of the Habit
+        weeklyHabitCount = document.getElementById(data.id);
+        weeklyHabitCount.innerHTML = data.count;
       }).catch((e) => {
       });
     },
