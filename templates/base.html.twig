@@ -27,6 +27,7 @@
                     <li>
                         {% if is_granted('ROLE_USER') %}
                             <a class="nav-link" href="{{ path('app_reset_password') }}">Change password</a>
+                            <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                         {% endif %}
                     </li>
                     <li>
